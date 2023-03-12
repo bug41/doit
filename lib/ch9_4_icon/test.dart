@@ -14,17 +14,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 여기가 아닌감?
-    GestureDetector(
-      child: Image.network(
-        'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-        fit: BoxFit.cover,
-      ),
-      onTap: () {
-        print('image click...');
-      },
-    );
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -32,6 +21,15 @@ class MyApp extends StatelessWidget {
         ),
         body: Column(
           children: [
+            GestureDetector(
+              child: Image.network(
+                'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+                fit: BoxFit.cover,
+              ),
+              onTap: () {
+                print('image click...');
+              },
+            ),
             const Icon(
               Icons.alarm,
               size: 100,
