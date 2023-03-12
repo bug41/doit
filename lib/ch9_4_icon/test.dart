@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main(List<String> args) {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  onPressed() {
-    print('icon button click....');
+  const MyApp({super.key});
+
+  test() {
+    print('icon button click..!!!');
   }
 
   @override
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
               size: 100,
             ),
             IconButton(
-              onPressed: onPressed,
+              onPressed: test,
               icon: const Icon(
                 Icons.alarm,
                 size: 100,
