@@ -40,7 +40,9 @@ class MyFormState extends State<TestScreen> {
           child: Column(
             children: [
               TextFormField(
-                decoration: const InputDecoration(labelText: 'FirstName'),
+                decoration: const InputDecoration(
+                  labelText: 'FirstName',
+                ),
                 validator: (value) {
                   if (value?.isEmpty ?? false) {
                     return 'Please enter first name';
