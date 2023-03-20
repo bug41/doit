@@ -5,7 +5,7 @@ void main(List<String> args) {
 }
 
 class MyApp extends StatelessWidget {
-  List<String> citys = ['서울시', '인천시', '부산시', '대구시', '대전시', '광주시', '울산시'];
+  List<String> citys = ['서울시', '인천시', '부산시', '대구시', '대전시', '광주시', '울산시', '세종시'];
 
   MyApp({super.key});
 
@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
           title: const Text('Test'),
         ),
         body: GridView.builder(
+          itemCount: citys.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
           ),
