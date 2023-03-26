@@ -1,3 +1,4 @@
+import 'package:doit/ch14_1_navigation/user.dart';
 import 'package:flutter/material.dart';
 
 class TwoScreen extends StatelessWidget {
@@ -5,6 +6,8 @@ class TwoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, Object> args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, Object>;
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -20,6 +23,9 @@ class TwoScreen extends StatelessWidget {
                   'TwoScreen',
                   style: TextStyle(color: Colors.white, fontSize: 30),
                 ),
+                Text(
+                  'sendData:${args["arg1"]},${args["arg2"]},${(args["arg3"] as User).name}',
+                ),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/three');
@@ -28,7 +34,7 @@ class TwoScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.pop(context, User('LeeTaeWoong', 'busan'));
                   },
                   child: const Text('PoP'),
                 )

@@ -1,3 +1,4 @@
+import 'package:doit/ch14_1_navigation/user.dart';
 import 'package:flutter/material.dart';
 
 class OneScreen extends StatelessWidget {
@@ -21,8 +22,16 @@ class OneScreen extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 30),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/two');
+                  onPressed: () async {
+                    final result = await Navigator.pushNamed(
+                      context,
+                      '/two',
+                      arguments: {
+                        "arg1": 10,
+                        "arg2": "hello",
+                        "arg3": User('LeeTaeUng', 'Seoul'),
+                      },
+                    );
                   },
                   child: const Text('Go Two'),
                 ),
