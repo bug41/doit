@@ -25,10 +25,7 @@ class _MyAppState extends State<MyApp> {
       'Third Screen',
       style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
     ),
-    const Text(
-      'Fourth Screen',
-      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-    )
+    MyFourthScreen()
   ];
 
   void _onItemTapped(int index) {
@@ -126,6 +123,29 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class MyFourthScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Image.network(
+          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+          fit: BoxFit.cover,
+        ),
+        Container(
+          color: Colors.red,
+          child: Image.asset(
+            'images/big.jpeg',
+            width: 200,
+            height: 100,
+            fit: BoxFit.fill,
+          ),
+        ),
+      ],
     );
   }
 }
