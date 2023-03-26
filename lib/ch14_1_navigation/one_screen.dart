@@ -32,6 +32,8 @@ class OneScreen extends StatelessWidget {
                         "arg3": User('LeeTaeUng', 'Seoul'),
                       },
                     );
+                    print(
+                        'result:${(result as User).name} ${(result).address}');
                   },
                   child: const Text('Go Two'),
                 ),
