@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main(List<String> args) {
+void main() {
   runApp(const ParentWidget());
 }
 
@@ -8,7 +8,7 @@ class ParentWidget extends StatefulWidget {
   const ParentWidget({super.key});
 
   @override
-  State<ParentWidget> createState() => ParentWidgetState();
+  ParentWidgetState createState() => ParentWidgetState();
 }
 
 class ParentWidgetState extends State<ParentWidget> {
@@ -18,18 +18,14 @@ class ParentWidgetState extends State<ParentWidget> {
   int childCount = 0;
 
   void toggleFavorite() {
-    setState(() {
-      print('왜 여기 안와');
-      if (favorited) {
-        print('true 일때');
-        favoriteCount -= 1;
-        favorited = false;
-      } else {
-        print('false 일때');
-        favoriteCount += 1;
-        favorited = true;
-      }
-    });
+    if (favorited) {
+      favoriteCount -= 1;
+      favorited = false;
+    } else {
+      favoriteCount += 1;
+      favorited = true;
+    }
+    setState(() {});
   }
 
   void getChildData() {
@@ -42,30 +38,50 @@ class ParentWidgetState extends State<ParentWidget> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-              title: const Text('State Test'),
-            ),
-            body: Column(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('State Test'),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      child: Text('I am Parent, child count : $childCount'),
-                    ),
-                    ElevatedButton(
-                      onPressed: getChildData,
-                      child: const Text('get child data'),
-                    )
-                  ],
+                Container(
+                  child: Text('I am Parent, child count : $childCount'),
                 ),
-                ChildWidget(key: childKey),
-                const IconWidget(),
-                const ContentWidget()
+                ElevatedButton(
+                  onPressed: getChildData,
+                  child: const Text('get child data'),
+                )
               ],
-            )));
+            ),
+            ChildWidget(key: childKey),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 200,
+                  height: 100,
+                  color: Colors.pink,
+                  child: const Text('Container'),
+                ),
+                Container(
+                  width: 200,
+                  height: 100,
+                  color: Colors.pink,
+                  child: const Text('Container'),
+                ),
+                // 다른 자식 위젯들을 추가할 수 있습니다.
+              ],
+            ),
+            const IconWidget(),
+            const ContentWidget()
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -83,7 +99,6 @@ class ChildWidgetState extends State<ChildWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -91,12 +106,12 @@ class ChildWidgetState extends State<ChildWidget> {
           child: Text('I am Child, $childCount'),
         ),
         ElevatedButton(
+          child: const Text('increment'),
           onPressed: () {
             setState(() {
               childCount++;
             });
           },
-          child: const Text('increment'),
         ),
       ],
     );
@@ -108,7 +123,6 @@ class IconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     ParentWidgetState? state =
         context.findAncestorStateOfType<ParentWidgetState>();
 
@@ -118,8 +132,8 @@ class IconWidget extends StatelessWidget {
             ? const Icon(Icons.favorite)
             : const Icon(Icons.favorite_border)),
         color: Colors.blue,
-        iconSize: 100,
-        onPressed: state?.toggleFavorite,
+        iconSize: 200,
+        onPressed: () => state?.toggleFavorite(),
       ),
     );
   }
@@ -135,8 +149,8 @@ class ContentWidget extends StatelessWidget {
 
     return Center(
       child: Text(
-        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         'favoriteCount : ${state?.favoriteCount}',
+        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
     );
   }
