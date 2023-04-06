@@ -21,9 +21,11 @@ class ParentWidgetState extends State<ParentWidget> {
     setState(() {
       print('왜 여기 안와');
       if (favorited) {
+        print('true 일때');
         favoriteCount -= 1;
         favorited = false;
       } else {
+        print('false 일때');
         favoriteCount += 1;
         favorited = true;
       }
