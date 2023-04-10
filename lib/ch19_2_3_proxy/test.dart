@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/Material.dart';
+import 'package:provider/provider.dart';
 
 class Counter with ChangeNotifier {
   int _count = 0;
@@ -33,6 +34,85 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('ProxyProvider Test'),
+        ),
+        body: MultiProvider(
+          providers: [
+            ChangeNotifierProvider<Counter>.value(value: Counter()),
+            ProxyProvider<Counter, Sum>(
+              update: (context, model, sum) {
+                if (sum != null) {
+                  sum.sum = model.count;
+                  return sum;
+                } else {
+                  return Sum(model);
+                }
+              },
+            ),
+            ProxyProvider2<Counter, Sum, String>(
+              update: (context, model1, model2, data) {
+                return "count : ${model1.count} , sum : ${model2.sum}";
+              },
+            ),
+          ],
+          child: const SubWidget(),
+        ),
+      ),
+    );
+  }
+}
+
+class SubWidget extends StatelessWidget {
+  const SubWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var counter = Provider.of<Counter>(context);
+    var sum = Provider.of<Sum>(context);
+    var stringData = Provider.of<String>(context);
+
+    return Container(
+      color: Colors.orange,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'count : ${counter.count}',
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            Text(
+              'sum : ${sum.sum}',
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            Text(
+              'sum : $stringData',
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                counter.increment();
+              },
+              child: const Text('increment'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
