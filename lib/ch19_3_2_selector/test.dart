@@ -5,12 +5,12 @@ class MyDataModel with ChangeNotifier {
   int data1 = 0;
   int data2 = 10;
 
-  void chnageData1() {
+  void changeData1() {
     data1++;
     notifyListeners();
   }
 
-  void chnageData2() {
+  void changeData2() {
     data2++;
     notifyListeners();
   }
@@ -93,7 +93,7 @@ class HomeWidget extends StatelessWidget {
                   onPressed: () {
                     var model1 =
                         Provider.of<MyDataModel>(context, listen: false);
-                    model1.chnageData1();
+                    model1.changeData1();
                   },
                   child: const Text('mdoel data1 change'),
                 ),
@@ -101,7 +101,7 @@ class HomeWidget extends StatelessWidget {
                   onPressed: () {
                     var model1 =
                         Provider.of<MyDataModel>(context, listen: false);
-                    model1.chnageData2();
+                    model1.changeData2();
                   },
                   child: const Text('mdoel data2 change'),
                 ),
