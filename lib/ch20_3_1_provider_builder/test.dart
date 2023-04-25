@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('BlocObserver, BlocListener'),
         ),
-        body: MultiBlocListener(
+        body: MultiBlocProvider(
           providers: [
             BlocProvider<BlocCounter>(
               create: (context) => BlocCounter(),
